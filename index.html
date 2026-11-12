@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#070b18">
+  <meta name="description" content="Neon Rush — survive the asteroid storm. A fast, offline arcade survival game.">
+  <title>NEON RUSH — Cosmic Survival</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Neon Rush home"><span class="brand-mark">N</span><span>NEON<span class="brand-accent">RUSH</span></span></a>
+      <div class="top-actions">
+        <div class="best-chip"><span class="tiny-label">PERSONAL BEST</span><strong id="menuBest">000000</strong></div>
+        <button class="icon-btn" id="soundToggle" aria-label="Toggle sound" title="Toggle sound"><span id="soundIcon">♫</span></button>
+      </div>
+    </header>
+
+    <section class="screen active" id="menuScreen">
+      <div class="menu-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> DEEP SPACE // SURVIVAL PROTOCOL</div>
+        <h1>NEON<br><span>RUSH</span></h1>
+        <p class="tagline">THE VOID IS HUNGRY.<br><b>DON'T GET CAUGHT.</b></p>
+        <p class="intro">Pilot through an endless asteroid storm. Collect energy to evolve your ship, arm its guns, and survive the alien assault.</p>
+        <div class="menu-buttons">
+          <button class="primary-btn" id="playBtn"><span>INITIATE RUN</span><span class="btn-arrow">↗</span></button>
+          <button class="secondary-btn" id="howBtn">HOW TO PLAY <span>＋</span></button>
+        </div>
+        <div class="menu-meta"><span><i class="meta-icon">⌁</i> ENDLESS SURVIVAL</span><span><i class="meta-icon">◈</i> SOLO PILOT</span><span><i class="meta-icon">⌘</i> NO SIGNAL REQUIRED</span></div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-planet"></div>
+        <div class="hero-ship"><div class="ship-core"></div><div class="ship-wing left"></div><div class="ship-wing right"></div><div class="ship-flame"></div></div>
+        <div class="hero-asteroid asteroid-a"></div><div class="hero-asteroid asteroid-b"></div><div class="hero-asteroid asteroid-c"></div>
+        <div class="hero-label label-a">SECTOR 07 <span>● ACTIVE</span></div><div class="hero-label label-b">THREAT LEVEL <b>CRITICAL</b></div>
+        <div class="crosshair">＋</div>
+      </div>
+      <div class="menu-footer"><span>© 2089 NEON DIVISION</span><span>FLIGHT SYSTEMS ONLINE <i class="pulse-dot"></i></span></div>
+    </section>
+
+    <section class="screen game-screen" id="gameScreen">
+      <div class="game-top">
+        <div class="stat-block"><span class="tiny-label">SCORE</span><strong id="scoreValue">000000</strong></div>
+        <div class="stat-block centered"><span class="tiny-label">SURVIVAL TIME</span><strong id="timeValue">00:00</strong></div>
+        <div class="game-top-right"><div class="stat-block right"><span class="tiny-label">BEST RUN</span><strong id="bestValue">000000</strong></div><button class="icon-btn pause-btn" id="pauseBtn" aria-label="Pause">Ⅱ</button></div>
+      </div>
+      <div class="game-frame">
+        <canvas id="gameCanvas" aria-label="Neon Rush game area"></canvas>
+        <div class="game-hud">
+          <div class="health-panel"><span class="tiny-label">HULL INTEGRITY</span><div class="hearts" id="hearts"><i>◆</i><i>◆</i><i>◆</i></div></div>
+          <div class="level-panel"><span class="tiny-label">THREAT INDEX</span><strong id="levelValue">01 <small>/ LOW</small></strong></div>
+          <div class="power-panel" id="powerPanel"><span class="tiny-label">SYSTEM</span><strong id="powerValue">STANDBY</strong></div>
+        </div>
+        <div class="toast" id="toast"></div>
+        <div class="overlay hidden" id="pauseOverlay">
+          <div class="overlay-card"><div class="eyebrow">FLIGHT SYSTEM SUSPENDED</div><h2>PAUSED<span>.</span></h2><p>Catch your breath, pilot.</p><button class="primary-btn full" id="resumeBtn">RESUME FLIGHT <span>↗</span></button><button class="secondary-btn full" id="restartBtn">RESTART RUN</button><button class="text-btn" id="quitBtn">RETURN TO HANGAR</button></div>
+        </div>
+        <div class="overlay hidden" id="gameOverOverlay">
+          <div class="overlay-card result-card"><div class="eyebrow danger-eyebrow">SIGNAL LOST // SHIP DESTROYED</div><h2>RUN<br>OVER<span>.</span></h2><div class="final-score"><span class="tiny-label">FINAL SCORE</span><strong id="finalScore">000000</strong></div><div class="result-stats"><div><span>TIME SURVIVED</span><b id="finalTime">00:00</b></div><div><span>ENERGY ORBS</span><b id="finalOrbs">0</b></div><div><span>NEAR MISSES</span><b id="finalNear">0</b></div></div><div class="new-record hidden" id="newRecord">✦ NEW PERSONAL BEST ✦</div><button class="primary-btn full" id="againBtn">RUN IT BACK <span>↗</span></button><button class="secondary-btn full" id="homeBtn">RETURN TO HANGAR</button></div>
+        </div>
+      </div>
+      <div class="game-bottom"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE <span class="divider-dot">·</span> <kbd>ESC</kbd> PAUSE</span><span id="statusMessage">STAY SHARP, PILOT.</span></div>
+    </section>
+
+    <section class="screen modal-screen" id="howScreen">
+      <div class="info-card"><button class="close-btn" id="closeHow" aria-label="Close">×</button><div class="eyebrow">FLIGHT MANUAL // 001</div><h2>HOW TO<br><span>SURVIVE.</span></h2><div class="instruction-grid"><div class="instruction"><b class="instruction-icon">⌨</b><strong>MOVE</strong><p>Use WASD or arrow keys to steer. On mobile, drag your finger across the play field.</p></div><div class="instruction"><b class="instruction-icon">◇</b><strong>EVOLVE</strong><p>Energy orbs upgrade your ship. Collect 1, 3, then 5 to unlock and improve its auto-targeting guns.</p></div><div class="instruction"><b class="instruction-icon">✕</b><strong>AVOID</strong><p>Asteroids come from every direction. A collision costs one hull point. Purple shields absorb hits.</p></div><div class="instruction"><b class="instruction-icon">⚡</b><strong>ALIENS & BOSSES</strong><p>Aliens arrive after 30 seconds: dodge charger warning lines and sniper laser locks. A boss ship appears at 2 minutes.</p></div></div><div class="manual-tip"><span>PRO TIP</span> Keep moving. Your guns aim automatically at the nearest threat.</div><button class="primary-btn full" id="manualPlayBtn">GOT IT — LET'S FLY <span>↗</span></button></div>
+    </section>
+
+    <section class="screen modal-screen" id="settingsScreen">
+      <div class="info-card settings-card"><button class="close-btn" id="closeSettings" aria-label="Close">×</button><div class="eyebrow">SYSTEM CONFIGURATION</div><h2>FLIGHT<br><span>SETTINGS.</span></h2><label class="setting-row"><span><b>Sound effects</b><small>Arcade audio feedback</small></span><input type="checkbox" id="soundSetting" checked><i class="toggle"></i></label><label class="setting-row"><span><b>Screen shake</b><small>Impact feedback</small></span><input type="checkbox" id="shakeSetting" checked><i class="toggle"></i></label><div class="manual-tip">Settings are saved locally on this device.</div></div>
+    </section>
+  </main>
+  <script src="js/audio.js"></script><script src="js/game.js"></script><script src="js/main.js"></script>
+</body>
+</html>
